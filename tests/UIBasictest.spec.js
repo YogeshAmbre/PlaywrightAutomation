@@ -34,7 +34,7 @@ test('First Playwright test', async ({ page }) => {
     console.log(allTitles)
 })
 
-test.only('UI Controls', async ({ page }) => {
+test('UI Controls(Dropdowns, RadioButtons, Checkboxes)', async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
     const userName = page.locator('#username')
     const signIn = page.locator("#signInBtn")
@@ -48,5 +48,22 @@ test.only('UI Controls', async ({ page }) => {
     await expect(page.locator('#terms')).toBeChecked()
     await page.locator('#terms').uncheck()
     expect(await page.locator('#terms').isChecked()).toBeFalsy()
+})
+test('Child window handelling', async ({ browser }) => {
+    const context = await browser.newContext()
+    const page = await context.newPage()
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/")
+    const documentLink = page.locator("[href='https://rahulshettyacademy.com/documents-request']")
+    const [newPage] = await Promise.all([
+        context.waitForEvent('page'),
+        documentLink.click()
+    ])
+    const text = await newPage.locator(".red").textContent();
+    const arrayText = text.split('@')
+    const domain = arrayText[1].split(' ')[0]
+    //console.log(domain);
+    await page.locator('#username').type(domain)
+    //await page.pause()
+    console.log(await page.locator('#username').textContent())
 })
 
