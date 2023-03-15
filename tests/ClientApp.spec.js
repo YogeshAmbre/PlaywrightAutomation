@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 test('ClientApp', async ({ page }) => {
-    await page.goto("https://rahulshettyacademy.com/client")
+    await page.goto("https://rahulshettyacademy.com/")
     await page.locator("#userEmail").type('yogesh.ambre@gmail.com')
     await page.locator("#userPassword").type('Vtest@2023')
     await page.locator('#login').click()
