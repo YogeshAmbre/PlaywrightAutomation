@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('Saucedemo - Place a order', async ({ page }) => {
+test('Saucedemo - Place an order', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/')
     const userName = "standard_user"
     const passWord = "secret_sauce"
